@@ -39,7 +39,7 @@
         chdir: "{{ dest_path }}"
 
     - name: Configure Git email
-      ansible.builtin.command: git config user.email "automation@example.com"
+      ansible.builtin.command: git config user.email "nrathi@redhat.com"
       args:
         chdir: "{{ dest_path }}"
 
