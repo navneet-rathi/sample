@@ -1,0 +1,62 @@
+---
+- name: Clone, update replica, and push back to repo
+  hosts: localhost
+  gather_facts: no
+  vars:
+    repo_url: "git@github.com:navneet-rathi/sample.git"
+    dest_path: "/tmp/sample"
+    #yaml_file_path: "manifests/deployment.yaml"
+    commit_msg: "Update replica count from 0 to 1"
+    search_string: 'replicas:\s*0'
+    replace_string: 'replicas: 1'
+  tasks:
+
+    - name: Clone Git repository with SSH key
+      git:
+        repo: "{{ repo_url }}"
+        dest: "{{ dest_path }}"
+        version: main
+        accept_hostkey: yes
+        #key_file: "~/.ssh/id_rsa"
+        update: yes
+
+    - name: Find all YAML and manifest files
+      find:
+        paths: "{{ dest_path }}"
+        patterns: "*.yaml,*.yml"
+        recurse: yes
+      register: yaml_files
+
+    - name: Replace replicas count in all matched files
+      replace:
+        path: "{{ item.path }}"
+        regexp: "{{ search_string }}"
+        replace: "{{ replace_string }}"
+      loop: "{{ yaml_files.files }}"
+
+    - name: Configure Git username
+      command: git config user.name "ansible-bot"
+      args:
+        chdir: "{{ dest_path }}"
+
+    - name: Configure Git email
+      command: git config user.email "automation@example.com"
+      args:
+        chdir: "{{ dest_path }}"
+
+    - name: Stage the modified file
+      command: git add .
+      args:
+        chdir: "{{ dest_path }}"
+
+    - name: Commit the changes
+      command: git commit -m "{{ commit_msg }}"
+      args:
+        chdir: "{{ dest_path }}"
+      register: commit_result
+      failed_when: commit_result.rc != 0 and "'nothing to commit'" not in commit_result.stderr
+
+    - name: Push changes back to Git repo
+      command: git push origin main
+      args:
+        chdir: "{{ dest_path }}"
