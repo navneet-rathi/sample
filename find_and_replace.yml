@@ -1,6 +1,6 @@
 ---
 - name: Clone, update replica, and push back to repo
-  hosts: localhost
+  hosts: all
   gather_facts: no
   vars:
     repo_url: "git@github.com:navneet-rathi/sample.git"
