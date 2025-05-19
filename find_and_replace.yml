@@ -5,7 +5,6 @@
   vars:
     repo_url: "git@github.com:navneet-rathi/sample.git"
     dest_path: "/tmp/sample"
-    #yaml_file_path: "manifests/deployment.yaml"
     commit_msg: "Update replica count from 0 to 1"
     search_string: 'replicas:\s*0'
     replace_string: 'replicas: 1'
