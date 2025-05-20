@@ -3,9 +3,7 @@
   gather_facts: no
   tasks:
     - name: Ensure dos2unix is installed
-      ansible.builtin.package:
-        name: dos2unix
-        state: present
+      ansible.builtin.command: rpm --version
 
     - name: Convert file to Unix line endings
       ansible.builtin.command: dos2unix deployment.yml
