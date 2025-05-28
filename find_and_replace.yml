@@ -25,9 +25,12 @@
           --instance-type {{ instance_type }} \
           --region {{ region }}
       register: result
-
+      check_mode: true
+###
+#  Added for debugging purpose
     - debug:
         var: result.stdout
+
 ### to make changes in git repo #####
     - name: Clone Git repository with SSH key
       ansible.builtin.git:
