@@ -10,7 +10,7 @@
     replace_string: 'replicas: 1'
 ##### ROSA variables ###########
     cluster_name: my-rosa-cluster
-    machine_pool_name: compute-pool-1
+    machine_pool_id: compute-pool-1
     instance_type: m5.large
     replicas: 3
     region: us-east-1
