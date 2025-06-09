@@ -60,12 +60,14 @@
       ansible.builtin.command: git config user.name "ansible-bot"
       args:
         chdir: "{{ dest_path }}"
-
+      delegate_to: localhost
+      
     - name: Configure Git email
       ansible.builtin.command: git config user.email "nrathi@redhat.com"
       args:
         chdir: "{{ dest_path }}"
-
+      delegate_to: localhost  
+      
     - name: Stage the modified file
       ansible.builtin.command: git add .
       args:
