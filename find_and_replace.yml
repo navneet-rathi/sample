@@ -16,16 +16,16 @@
     region: us-east-1
   tasks:
 #### Command to add compute instance in ROSA
-    - name: Create a new machine pool using ROSA CLI
-      shell: |
-        rosa create machinepool \
-          --cluster {{ cluster_name }} \
-          --name {{ machine_pool_id }} \
-          --replicas {{ replicas }} \
-          --instance-type {{ instance_type }} \
-          --region {{ region }}
-      register: result
-      check_mode: true
+ #   - name: Create a new machine pool using ROSA CLI
+ #     shell: |
+ #       rosa create machinepool \
+ #         --cluster {{ cluster_name }} \
+ #         --name {{ machine_pool_id }} \
+ #         --replicas {{ replicas }} \
+ #         --instance-type {{ instance_type }} \
+ #         --region {{ region }}
+ #     register: result
+ #     check_mode: true
 ###
 #  Added for debugging purpose
     - debug:
@@ -40,6 +40,7 @@
         accept_hostkey: yes
         #key_file: "~/.ssh/id_rsa"
         update: yes
+      delegate_to: localhost  
 
     - name: Find all YAML and manifest files
       ansible.builtin.find:
