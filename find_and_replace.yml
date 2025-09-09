@@ -59,7 +59,7 @@
         path: "{{ item.path }}"
         regexp: "{{ search_string }}"
         replace: "{{ replace_string }}"
-#      loop: "{{ yaml_files.files }}"
+      loop: "{{ yaml_files.files }}"
 
     - name: Configure Git username
       ansible.builtin.command: git config user.name "ansible-bot"
