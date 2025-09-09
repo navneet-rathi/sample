@@ -2,29 +2,7 @@
 - name: Apply changes on Target Host from Dc to DR
   hosts: all
   gather_facts: no
-  tasks:
-    - name: create a directory
-      ansible.builtin.file:
-        path: .kube
-        state: directory
-        mode: '0700'
-         
-    - name: fetch a file
-      ansible.builtin.fetch:
-        src: /root/.kube/config
-        dest: .kube/config
-        flat: yes
-
-- name: start appling
-  hosts: localhost
-  connection: local
-  tasks:
-    - name: Replace replicas count in all matched files
-      ansible.builtin.replace:
-        path: ".kube/config"
-        regexp: "localhost"
-        replace: "192.168.64.43"
-              
+  tasks:              
     - name: Try to list namespaces
       kubernetes.core.k8s_info:
         api_version: v1
