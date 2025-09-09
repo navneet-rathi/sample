@@ -14,9 +14,4 @@
           name: find_replace
           organization: Default
 
-    - name: R2 - Everything is working
-      condition: event.url_check.status == "up"
-      action:
-        debug:
-          msg: "Nginx is Working as expected"
 
