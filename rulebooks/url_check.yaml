@@ -10,7 +10,7 @@
     - name: R1 - DC Nginx is down
       condition: event.url_check.status == "down"
       action:
-        run_job_template:
+        run_workflow_template:
           name: find_replace
           organization: Default
 
