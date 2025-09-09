@@ -1,0 +1,19 @@
+---
+- name: Apply changes on Target Host from Dc to DR
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Try to list namespaces
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Namespace
+      register: microshift_check
+
+    - name: Report validation result
+      debug:
+        msg: "Microshift cluster is accessible. Found {{ microshift_check.resources | length }} namespaces."
+
+    - name: Fail if Kubernetes cluster is not accessible
+      fail:
+        msg: "microshift cluster is NOT accessible!"
+      when: microshift_check.failed is defined and microshift_check.failed        
