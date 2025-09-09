@@ -14,11 +14,17 @@
         src: /root/.kube/config
         dest: .kube/config
         flat: yes
-        
+
 - name: start appling
   hosts: localhost
   connection: local
   tasks:
+    - name: Replace replicas count in all matched files
+      ansible.builtin.replace:
+        path: ".kube/config"
+        regexp: "localhost"
+        replace: "192.168.64.43"
+              
     - name: Try to list namespaces
       kubernetes.core.k8s_info:
         api_version: v1
