@@ -1,0 +1,22 @@
+---
+- name: Basic Check webserver
+  hosts: all
+  sources:
+    - ansible.eda.url_check:
+        urls:
+          - http://192.168.64.41
+        delay: 45
+  rules:
+    - name: R1 - DC Nginx is down
+      condition: event.url_check.status == "down"
+      action:
+        run_job_template:
+          name: find_replace
+          organization: Default
+
+    - name: R2 - Everything is working
+      condition: event.url_check.status == "up"
+      action:
+        debug:
+          msg: "Nginx is Working as expected"
+
