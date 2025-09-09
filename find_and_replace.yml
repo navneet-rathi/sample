@@ -28,8 +28,8 @@
  #     check_mode: true
 ###
 #  Added for debugging purpose
-    - debug:
-        var: result.stdout
+#    - debug:
+#        var: result.stdout
 
 ### to make changes in git repo #####
     - name: Clone Git repository with SSH key
@@ -40,7 +40,7 @@
         accept_hostkey: yes
         #key_file: "~/.ssh/id_rsa"
         update: yes
-      delegate_to: localhost  
+#      delegate_to: localhost  
 
     - name: Find all YAML and manifest files
       ansible.builtin.find:
@@ -54,19 +54,19 @@
         path: "{{ item.path }}"
         regexp: "{{ search_string }}"
         replace: "{{ replace_string }}"
-      loop: "{{ yaml_files.files }}"
+#      loop: "{{ yaml_files.files }}"
 
     - name: Configure Git username
       ansible.builtin.command: git config user.name "ansible-bot"
       args:
         chdir: "{{ dest_path }}"
-      delegate_to: localhost
+#      delegate_to: localhost
       
     - name: Configure Git email
       ansible.builtin.command: git config user.email "nrathi@redhat.com"
       args:
         chdir: "{{ dest_path }}"
-      delegate_to: localhost  
+#      delegate_to: localhost  
       
     - name: Stage the modified file
       ansible.builtin.command: git add .
