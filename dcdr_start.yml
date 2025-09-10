@@ -1,0 +1,42 @@
+---
+- name: Apply changes on Target Host from Dc to DR
+  hosts: all
+  gather_facts: no
+  vars:
+    repo_url: "git@github.com:navneet-rathi/sample.git"
+    dest_path: "/tmp/sample"
+  tasks:              
+    - name: Try to list namespaces
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Namespace
+      register: microshift_check
+
+    - name: Report validation result
+      debug:
+        msg: "Microshift cluster is accessible. Found {{ microshift_check.resources | length }} namespaces."
+
+    - name: Fail if Kubernetes cluster is not accessible
+      fail:
+        msg: "microshift cluster is NOT accessible!"
+      when: microshift_check.failed is defined and microshift_check.failed        
+
+    - name: make sure git is installed
+      ansible.builtin.dnf:
+        name: git
+        state: latest
+
+### to make changes in git repo #####
+    - name: Clone Git repository with SSH key
+      ansible.builtin.git:
+        repo: "{{ repo_url }}"
+        dest: "{{ dest_path }}"
+        version: main
+        accept_hostkey: yes
+        update: yes
+
+    - name: Create a Deployment by reading the definition from a local file
+      kubernetes.core.k8s:
+        state: absent
+        src: "{{ dest_path }}/deployment.yml"        
+  
