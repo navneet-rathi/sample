@@ -15,10 +15,10 @@
     replicas: 3
     region: us-east-1
   tasks:
-    - name: make sure git is installed
-      ansible.builtin.dnf:
-        name: git
-        state: latest
+    # - name: make sure git is installed
+    #   ansible.builtin.dnf:
+    #     name: git
+    #     state: latest
          
 #### Command to add compute instance in ROSA
  #   - name: Create a new machine pool using ROSA CLI
