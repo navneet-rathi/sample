@@ -21,10 +21,10 @@
         msg: "microshift cluster is NOT accessible!"
       when: microshift_check.failed is defined and microshift_check.failed        
 
-    - name: make sure git is installed
-      ansible.builtin.dnf:
-        name: git
-        state: latest
+    # - name: make sure git is installed
+    #   ansible.builtin.dnf:
+    #     name: git
+    #     state: latest
 
 ### to make changes in git repo #####
     - name: Clone Git repository with SSH key
