@@ -25,15 +25,16 @@
     #   ansible.builtin.dnf:
     #     name: git
     #     state: latest
-
+    
+### Cmmented this to optimize the flow
 ### to make changes in git repo #####
-    - name: Clone Git repository with SSH key
-      ansible.builtin.git:
-        repo: "{{ repo_url }}"
-        dest: "{{ dest_path }}"
-        version: main
-        accept_hostkey: yes
-        update: yes
+    # - name: Clone Git repository with SSH key
+    #   ansible.builtin.git:
+    #     repo: "{{ repo_url }}"
+    #     dest: "{{ dest_path }}"
+    #     version: main
+    #     accept_hostkey: yes
+    #     update: yes
 
     - name: Create a Deployment by reading the definition from a local file
       kubernetes.core.k8s:
