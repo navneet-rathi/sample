@@ -83,7 +83,8 @@
       args:
         chdir: "{{ dest_path }}"
       register: commit_result
-      failed_when: commit_result.rc != 0 and "'nothing to commit'" not in commit_result.stderr
+      ignore_errors: true
+      #failed_when: commit_result.rc != 0 and "'nothing to commit'" not in commit_result.stderr
 
     - name: Push changes back to Git repo
       ansible.builtin.command: git push origin main
