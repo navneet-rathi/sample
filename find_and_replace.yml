@@ -89,3 +89,5 @@
       ansible.builtin.command: git push origin main
       args:
         chdir: "{{ dest_path }}"
+      ignore_errors: true  
+      when: commit_result.rc == 0
