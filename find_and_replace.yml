@@ -6,8 +6,8 @@
     repo_url: "git@github.com:navneet-rathi/sample.git"
     dest_path: "/tmp/sample"
     commit_msg: "Update replica count from 0 to 1"
-    search_string: 'replicas:\s*0'
-    replace_string: 'replicas: 1'
+    search_string: 'replicas:\s*1'
+    replace_string: 'replicas: 0'
 ##### ROSA variables ###########
     cluster_name: my-rosa-cluster
     machine_pool_id: compute-pool-1
@@ -15,27 +15,6 @@
     replicas: 3
     region: us-east-1
   tasks:
-    # - name: make sure git is installed
-    #   ansible.builtin.dnf:
-    #     name: git
-    #     state: latest
-         
-#### Command to add compute instance in ROSA
- #   - name: Create a new machine pool using ROSA CLI
- #     shell: |
- #       rosa create machinepool \
- #         --cluster {{ cluster_name }} \
- #         --name {{ machine_pool_id }} \
- #         --replicas {{ replicas }} \
- #         --instance-type {{ instance_type }} \
- #         --region {{ region }}
- #     register: result
- #     check_mode: true
-###
-#  Added for debugging purpose
-#    - debug:
-#        var: result.stdout
-
 ### to make changes in git repo #####
     - name: Clone Git repository with SSH key
       ansible.builtin.git:
