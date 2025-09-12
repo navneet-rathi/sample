@@ -5,6 +5,9 @@
   vars:
     repo_url: "git@github.com:navneet-rathi/sample.git"
     dest_path: "/tmp/sample"
+    commit_msg: "Update replica count from 0 to 1"
+    search_string: 'replicas:\s*0'
+    replace_string: 'replicas: 1'
   tasks:              
     - name: Try to list namespaces
       kubernetes.core.k8s_info:
